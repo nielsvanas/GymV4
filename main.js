@@ -206,6 +206,27 @@ const today = new Date().toISOString().split('T')[0];
     reader.readAsText(file);
   }
 
+function clearEntriesByDate() {
+  const dateToClear = dateInput.value;
+  if (!dateToClear) {
+    alert("Please select a date.");
+    return;
+  }
+
+  const originalLength = log.length;
+  log = log.filter(entry => entry.date !== dateToClear);
+
+  if (log.length === originalLength) {
+    alert("No entries found for the selected date.");
+    return;
+  }
+
+  localStorage.setItem('weightliftingLog', JSON.stringify(log));
+  switchView();
+  alert(`Entries for ${dateToClear} have been cleared.`);
+}
+
+
   switchView();
   updateExercises();
 
